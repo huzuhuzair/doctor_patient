@@ -1,0 +1,90 @@
+{
+  "project_info": {
+    "project_number": "782016808384",
+    "project_id": "smart-car-services",
+    "storage_bucket": "smart-car-services.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:782016808384:android:38f541f52568b38be8b425",
+        "android_client_info": {
+          "package_name": "com.codebrew.smartcaragent"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "782016808384-do6u28kl16o23j8t52frcg3a5s80im39.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsZ5ipRsxfDcjUFbFDEgjCCbABjlEv-HU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "782016808384-do6u28kl16o23j8t52frcg3a5s80im39.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "782016808384-54pvqrgoc8d8rhc5et2emcdnoufjrako.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.smartcarservice.user"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:782016808384:android:10f8cb88450effd6e8b425",
+        "android_client_info": {
+          "package_name": "com.codebrew.smartcarservice"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "782016808384-nld5m673d7aqifjodm8o9pvpsnoh506o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.codebrew.smartcarservice",
+            "certificate_hash": "9fe4c17c2bf03d67d18895e54bafdc21aa1c78c8"
+          }
+        },
+        {
+          "client_id": "782016808384-do6u28kl16o23j8t52frcg3a5s80im39.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsZ5ipRsxfDcjUFbFDEgjCCbABjlEv-HU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "782016808384-do6u28kl16o23j8t52frcg3a5s80im39.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "782016808384-54pvqrgoc8d8rhc5et2emcdnoufjrako.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.smartcarservice.user"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

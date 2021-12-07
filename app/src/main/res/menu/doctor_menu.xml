@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+    <item
+        android:id="@+id/fragmentConversation"
+        android:title="Home"
+        android:icon="@drawable/ic_home_icon" />
+
+
+<!--    <item-->
+<!--        android:id="@+id/search"-->
+<!--        android:title="Search"-->
+<!--        android:icon="@drawable/ic_search_inactive" />-->
+
+
+<!--    <item-->
+<!--        android:id="@+id/bookingFragment"-->
+<!--        android:title="Bookings"-->
+<!--        android:icon="@drawable/ic_calendar" />-->
+
+
+<!--    <item-->
+<!--        android:id="@+id/myCarsFragment"-->
+<!--        android:title="My Cars"-->
+<!--        android:icon="@drawable/ic_carkeys" />-->
+
+    <item
+        android:id="@+id/profileFragment"
+        android:title="Profile"
+        android:icon="@drawable/ic_user" />
+<!--    <item-->
+<!--        android:id="@+id/walletFragment"-->
+<!--        android:title="Wallet"-->
+<!--        android:icon="@drawable/ic_wallet" />-->
+<!--    <item-->
+<!--        android:id="@+id/usersFragment"-->
+<!--        android:title="Users"-->
+<!--        android:icon="@drawable/ic_target" />-->
+<!--    <item-->
+<!--        android:id="@+id/ratingFragment"-->
+<!--        android:title="Profile"-->
+<!--        android:icon="@drawable/ic_star_grey" />-->
+<!--    <item-->
+<!--        android:id="@+id/profileFragment"-->
+<!--        android:title="Profile"-->
+<!--        android:icon="@drawable/ic_profile_ring" />-->
+
+
+</menu>

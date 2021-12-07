@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+ <androidx.core.widget.NestedScrollView
+     android:layout_width="match_parent"
+     android:layout_height="match_parent">
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:orientation="vertical"
+         android:id="@+id/llMain"
+         android:layout_height="wrap_content">
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="@dimen/_8sdp"
+             android:paddingRight="@dimen/_10sdp"
+             android:paddingLeft="@dimen/_10sdp"
+             android:visibility="gone"
+             android:paddingTop="@dimen/_20sdp"
+             android:background="@drawable/header_round"
+             android:paddingBottom="@dimen/_20sdp"
+             android:orientation="vertical">
+             <TextView
+                 android:layout_height="wrap_content"
+                 android:layout_width="wrap_content"
+                 android:textSize="@dimen/_24sdp"
+                 android:visibility="gone"
+                 android:textColor="@color/white"
+                 android:fontFamily="@font/circular_medium"
+                 android:text="Categories" />
+             <TextView
+                 android:layout_height="wrap_content"
+                 android:layout_width="wrap_content"
+                 android:visibility="gone"
+                 android:textColor="@color/white"
+                 android:textSize="@dimen/_12sdp"
+                 android:fontFamily="@font/circular_book"
+                 android:text="All categories will be shown below" />
+         </LinearLayout>
+
+         <ProgressBar
+             android:id="@+id/progressCircular"
+             style="?android:attr/progressBarStyle"
+             android:layout_width="@dimen/_20sdp"
+             android:layout_gravity="center_horizontal"
+             android:visibility="gone"
+             android:layout_marginTop="@dimen/_10sdp"
+             android:layout_height="@dimen/_20sdp" />
+         <com.denzcoskun.imageslider.ImageSlider
+             android:id="@+id/image_slider"
+             android:layout_width="match_parent"
+             android:layout_height="@dimen/_180sdp"
+             app:iss_auto_cycle="true"
+             app:iss_corner_radius="12"
+             android:layout_marginTop="@dimen/_5sdp"
+             android:layout_marginBottom="@dimen/_5sdp"
+             android:layout_marginStart="@dimen/_13sdp"
+             android:layout_marginEnd="@dimen/_13sdp"
+             app:iss_error_image="@drawable/error"
+             app:iss_period="2500"
+             app:iss_placeholder="@drawable/placeholder"
+             app:iss_delay="0"/>
+         <androidx.recyclerview.widget.RecyclerView
+             android:id="@+id/rvCategory"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginStart="@dimen/_5sdp"
+             android:layout_marginEnd="@dimen/_5sdp"
+             android:nestedScrollingEnabled="true"
+             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintTop_toBottomOf="@+id/etSearch"
+             app:spanCount="2"
+             tools:itemCount="6"
+             tools:listitem="@layout/rv_item_category" />
+         <androidx.appcompat.widget.AppCompatTextView
+             android:id="@+id/tvPopular"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginStart="@dimen/_16sdp"
+             android:layout_marginTop="@dimen/_20sdp"
+             android:layout_marginBottom="@dimen/_5sdp"
+             android:gravity="start"
+             android:visibility="gone"
+             android:text="@string/popular_doctors"
+             android:textColor="@color/black"
+             android:textSize="@dimen/_20sdp"
+             app:fontFamily="@font/circular_medium"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintTop_toBottomOf="@+id/tvNoData" />
+         <androidx.recyclerview.widget.RecyclerView
+             android:id="@+id/rvDocs"
+             android:layout_width="match_parent"
+             android:visibility="gone"
+             android:layout_height="match_parent"
+             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintStart_toStartOf="parent"
+             tools:itemCount="4"
+             tools:listitem="@layout/rv_item_doctor" />
+     </LinearLayout>
+ </androidx.core.widget.NestedScrollView>
+
+</layout>

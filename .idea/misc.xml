@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/Aamir Bashir/AndroidStudioProjects/CodeBrew/iCarePro/app/src/main/res/drawable-xxhdpi/ic_read_tick.xml" value="0.21388888888888888" />
+        <entry key="..\:/Users/Aamir Bashir/AndroidStudioProjects/CodeBrew/iCarePro/app/src/main/res/drawable-xxhdpi/ic_unread_tick.xml" value="0.21388888888888888" />
+        <entry key="..\:/Users/Aamir Bashir/AndroidStudioProjects/CodeBrew/iCarePro/app/src/main/res/drawable-xxhdpi/incomming_bubble.xml" value="0.21388888888888888" />
+        <entry key="..\:/Users/Aamir Bashir/AndroidStudioProjects/CodeBrew/iCarePro/app/src/main/res/drawable-xxhdpi/outgoing_bubble.xml" value="0.21388888888888888" />
+        <entry key="..\:/Users/Aamir Bashir/AndroidStudioProjects/CodeBrew/iCarePro/app/src/main/res/drawable/background_circle_blue.xml" value="0.21388888888888888" />
+        <entry key="..\:/Users/Aamir Bashir/AndroidStudioProjects/CodeBrew/iCarePro/app/src/main/res/drawable/background_light_grey_solid_6dp.xml" value="0.21388888888888888" />
+        <entry key="..\:/Users/Aamir Bashir/AndroidStudioProjects/CodeBrew/iCarePro/app/src/main/res/drawable/drawable_chat_text.xml" value="0.21388888888888888" />
+        <entry key="..\:/Users/Aamir Bashir/AndroidStudioProjects/CodeBrew/iCarePro/app/src/main/res/drawable/drawable_profile_gredient.xml" value="0.21388888888888888" />
+        <entry key="..\:/Users/Aamir Bashir/AndroidStudioProjects/CodeBrew/iCarePro/app/src/main/res/drawable/golden_gradient.xml" value="0.21388888888888888" />
+        <entry key="..\:/Users/Aamir Bashir/AndroidStudioProjects/CodeBrew/iCarePro/app/src/main/res/drawable/header_round.xml" value="0.21388888888888888" />
+        <entry key="..\:/Users/Aamir Bashir/AndroidStudioProjects/CodeBrew/iCarePro/app/src/main/res/drawable/ic_bell.xml" value="0.21388888888888888" />
+        <entry key="..\:/Users/Aamir Bashir/AndroidStudioProjects/CodeBrew/iCarePro/app/src/main/res/drawable/ic_blue_button.xml" value="0.21388888888888888" />
+        <entry key="..\:/Users/Aamir Bashir/AndroidStudioProjects/CodeBrew/iCarePro/app/src/main/res/drawable/ic_fab_next.xml" value="0.21388888888888888" />
+        <entry key="..\:/Users/Aamir Bashir/AndroidStudioProjects/CodeBrew/iCarePro/app/src/main/res/drawable/ic_menu.xml" value="0.21388888888888888" />
+        <entry key="..\:/Users/Aamir Bashir/AndroidStudioProjects/CodeBrew/iCarePro/app/src/main/res/drawable/primary_gradient.xml" value="0.21388888888888888" />
+        <entry key="..\:/Users/Aamir Bashir/AndroidStudioProjects/CodeBrew/iCarePro/app/src/main/res/drawable/search_rectangle_bg.xml" value="0.21388888888888888" />
+        <entry key="..\:/Users/Aamir Bashir/AndroidStudioProjects/CodeBrew/iCarePro/app/src/main/res/layout/activity_authentication.xml" value="0.19953703703703704" />
+        <entry key="..\:/Users/Aamir Bashir/AndroidStudioProjects/CodeBrew/iCarePro/app/src/main/res/layout/activity_home.xml" value="0.19953703703703704" />
+        <entry key="..\:/Users/Aamir Bashir/AndroidStudioProjects/CodeBrew/iCarePro/app/src/main/res/layout/activity_main.xml" value="0.19953703703703704" />
+        <entry key="..\:/Users/Aamir Bashir/AndroidStudioProjects/CodeBrew/iCarePro/app/src/main/res/layout/dialog_select_photo.xml" value="0.19953703703703704" />
+        <entry key="..\:/Users/Aamir Bashir/AndroidStudioProjects/CodeBrew/iCarePro/app/src/main/res/layout/filter_layout.xml" value="0.19953703703703704" />
+        <entry key="..\:/Users/Aamir Bashir/AndroidStudioProjects/CodeBrew/iCarePro/app/src/main/res/layout/fragment_chat.xml" value="0.19953703703703704" />
+        <entry key="..\:/Users/Aamir Bashir/AndroidStudioProjects/CodeBrew/iCarePro/app/src/main/res/layout/fragment_docters.xml" value="0.19953703703703704" />
+        <entry key="..\:/Users/Aamir Bashir/AndroidStudioProjects/CodeBrew/iCarePro/app/src/main/res/layout/fragment_doctor_detail.xml" value="0.22372611464968153" />
+        <entry key="..\:/Users/Aamir Bashir/AndroidStudioProjects/CodeBrew/iCarePro/app/src/main/res/layout/fragment_edit_profile.xml" value="0.19953703703703704" />
+        <entry key="..\:/Users/Aamir Bashir/AndroidStudioProjects/CodeBrew/iCarePro/app/src/main/res/layout/fragment_home.xml" value="0.19953703703703704" />
+        <entry key="..\:/Users/Aamir Bashir/AndroidStudioProjects/CodeBrew/iCarePro/app/src/main/res/layout/fragment_login.xml" value="0.19953703703703704" />
+        <entry key="..\:/Users/Aamir Bashir/AndroidStudioProjects/CodeBrew/iCarePro/app/src/main/res/layout/fragment_profile.xml" value="0.19953703703703704" />
+        <entry key="..\:/Users/Aamir Bashir/AndroidStudioProjects/CodeBrew/iCarePro/app/src/main/res/layout/fragment_register.xml" value="0.19953703703703704" />
+        <entry key="..\:/Users/Aamir Bashir/AndroidStudioProjects/CodeBrew/iCarePro/app/src/main/res/layout/fragment_sign_up.xml" value="0.19953703703703704" />
+        <entry key="..\:/Users/Aamir Bashir/AndroidStudioProjects/CodeBrew/iCarePro/app/src/main/res/layout/fragment_sign_up_upload.xml" value="0.19953703703703704" />
+        <entry key="..\:/Users/Aamir Bashir/AndroidStudioProjects/CodeBrew/iCarePro/app/src/main/res/layout/fragment_splash.xml" value="0.19953703703703704" />
+        <entry key="..\:/Users/Aamir Bashir/AndroidStudioProjects/CodeBrew/iCarePro/app/src/main/res/layout/fragment_user_details.xml" value="0.19953703703703704" />
+        <entry key="..\:/Users/Aamir Bashir/AndroidStudioProjects/CodeBrew/iCarePro/app/src/main/res/layout/incomming_bubble.xml" value="0.19953703703703704" />
+        <entry key="..\:/Users/Aamir Bashir/AndroidStudioProjects/CodeBrew/iCarePro/app/src/main/res/layout/layout_chat_users_list_adapter.xml" value="0.19953703703703704" />
+        <entry key="..\:/Users/Aamir Bashir/AndroidStudioProjects/CodeBrew/iCarePro/app/src/main/res/layout/layout_chatlist_fragment.xml" value="0.19953703703703704" />
+        <entry key="..\:/Users/Aamir Bashir/AndroidStudioProjects/CodeBrew/iCarePro/app/src/main/res/layout/layout_mychat.xml" value="0.33" />
+        <entry key="..\:/Users/Aamir Bashir/AndroidStudioProjects/CodeBrew/iCarePro/app/src/main/res/layout/layout_otherchat.xml" value="0.19953703703703704" />
+        <entry key="..\:/Users/Aamir Bashir/AndroidStudioProjects/CodeBrew/iCarePro/app/src/main/res/layout/rv_item_category.xml" value="0.19953703703703704" />
+        <entry key="..\:/Users/Aamir Bashir/AndroidStudioProjects/CodeBrew/iCarePro/app/src/main/res/layout/rv_item_doctor.xml" value="0.19953703703703704" />
+        <entry key="..\:/Users/Aamir Bashir/AndroidStudioProjects/CodeBrew/iCarePro/app/src/main/res/menu/bottom_menu.xml" value="0.19953703703703704" />
+        <entry key="..\:/Users/Aamir Bashir/AndroidStudioProjects/CodeBrew/iCarePro/app/src/main/res/menu/doctor_menu.xml" value="0.19953703703703704" />
+        <entry key="..\:/Users/Aamir Bashir/AndroidStudioProjects/CodeBrew/iCarePro/app/src/main/res/menu/user_menu.xml" value="0.5" />
+        <entry key="..\:/Users/Aamir Bashir/AndroidStudioProjects/CodeBrew/iCarePro/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.21388888888888888" />
+        <entry key="..\:/Users/Aamir Bashir/AndroidStudioProjects/CodeBrew/iCarePro/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.21388888888888888" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
