@@ -48,6 +48,12 @@
         <entry key="..\:/Users/Aamir Bashir/AndroidStudioProjects/CodeBrew/iCarePro/app/src/main/res/menu/user_menu.xml" value="0.5" />
         <entry key="..\:/Users/Aamir Bashir/AndroidStudioProjects/CodeBrew/iCarePro/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.21388888888888888" />
         <entry key="..\:/Users/Aamir Bashir/AndroidStudioProjects/CodeBrew/iCarePro/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.21388888888888888" />
+        <entry key="..\:/Users/Aamir Bashir/AndroidStudioProjects/doctor_patient.git/app/src/main/res/layout/fragment_chat.xml" value="0.22447916666666667" />
+        <entry key="..\:/Users/Aamir Bashir/AndroidStudioProjects/doctor_patient.git/app/src/main/res/layout/fragment_doctor_detail.xml" value="0.22447916666666667" />
+        <entry key="..\:/Users/Aamir Bashir/AndroidStudioProjects/doctor_patient.git/app/src/main/res/layout/fragment_register.xml" value="0.22447916666666667" />
+        <entry key="..\:/Users/Aamir Bashir/AndroidStudioProjects/doctor_patient.git/app/src/main/res/layout/layout_chat_users_list_adapter.xml" value="0.22447916666666667" />
+        <entry key="..\:/Users/Aamir Bashir/AndroidStudioProjects/doctor_patient.git/app/src/main/res/layout/layout_mychat.xml" value="0.1" />
+        <entry key="..\:/Users/Aamir Bashir/AndroidStudioProjects/doctor_patient.git/app/src/main/res/layout/layout_otherchat.xml" value="0.22447916666666667" />
       </map>
     </option>
   </component>

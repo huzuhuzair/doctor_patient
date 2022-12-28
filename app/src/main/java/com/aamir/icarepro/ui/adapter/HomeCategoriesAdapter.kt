@@ -70,7 +70,7 @@ class HomeCategoriesAdapter(
             tvName.text = item.title
             item.banner_url = item.banner_url.replace(
                 "http://127.0.0.1:8000/",
-                "http://192.168.18.125:1020/hospitalmanagement/public/"
+                "https://icare.codewithbhat.info/public/"
             )
             binding.ivCategory.loadImage(item.banner_url, R.drawable.error)
 

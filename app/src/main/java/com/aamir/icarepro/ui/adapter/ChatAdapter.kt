@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.aamir.icarepro.R
+import com.aamir.icarepro.data.models.FbChat
 import com.aamir.icarepro.data.models.chat.ChatMessage
 import com.aamir.icarepro.data.models.login.LoginResponse
 import com.aamir.icarepro.utils.timeAgo
@@ -16,7 +17,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class ChatAdapter(
-    private val chattingList: ArrayList<ChatMessage>,
+    private val chattingList: ArrayList<FbChat>,
     private val mActivity: Activity,
     private val user: LoginResponse
 ) : RecyclerView.Adapter<ChatAdapter.Viewholder>() {
@@ -42,7 +43,7 @@ class ChatAdapter(
 
     override fun getItemViewType(position: Int): Int {
         super.getItemViewType(position)
-        return if (user.id == chattingList[position].sender_id) {
+        return if (user.id == chattingList[position].sentBy) {
             1
         } else 2
     }
@@ -57,14 +58,14 @@ class ChatAdapter(
             showDateHeader = true
         } else {
             val cal1 = Calendar.getInstance()
-            cal1.timeInMillis =
-                convertStringToDateMillies(chattingList[position - 1].created_at ?: "")
-            val cal2 = Calendar.getInstance()
-            cal2.timeInMillis = convertStringToDateMillies(chattingList[position].created_at ?: "")
-            showDateHeader =
-                !(cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) && cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(
-                    Calendar.DAY_OF_YEAR
-                ))
+//            cal1.timeInMillis =
+//                convertStringToDateMillies(chattingList[position - 1].created_at ?: "")
+//            val cal2 = Calendar.getInstance()
+//            cal2.timeInMillis = convertStringToDateMillies(chattingList[position].created_at ?: "")
+//            showDateHeader =
+//                !(cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) && cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(
+//                    Calendar.DAY_OF_YEAR
+//                ))
         }
 
 //        if (showDateHeader) {
@@ -96,18 +97,18 @@ class ChatAdapter(
 //            holder.tvDateHeaderOthers.visibility = View.GONE
 //        }
 
-        holder.tvTime.text = if (chattingList[position].created_at != null) msgDate(
-            chattingList[position].created_at ?: ""
+        holder.tvTime.text = if (chattingList[position].dated != null) msgDate(
+            chattingList[position].dated ?: ""
         ) else holder.itemView.context.getString(R.string.now)
 
 
         holder.tvMessage.setCompoundDrawablesRelativeWithIntrinsicBounds(
             0, 0, 0, 0
         )
-        if (chattingList[position].type == "text") {
+//        if (chattingList[position].type == "text") {
             holder.tvMessage.text = chattingList[position].message
             holder.tvMessage.visibility = View.VISIBLE
-        }
+//        }
 
 //        holder.ivMsg.setOnClickListener {
 //
@@ -147,10 +148,10 @@ class ChatAdapter(
 //            }
 //        }
 
-        holder.itemView.msgTick.setBackgroundResource(R.drawable.ic_unread_tick)
-        if (chattingList[position].read_at != null) {
-            holder.itemView.msgTick.setBackgroundResource(R.drawable.ic_read_tick)
-        }
+//        holder.itemView.msgTick.setBackgroundResource(R.drawable.ic_unread_tick)
+//        if (chattingList[position].read_at != null) {
+//            holder.itemView.msgTick.setBackgroundResource(R.drawable.ic_read_tick)
+//        }
 
 //        holder.btnPlay.setBackgroundResource(R.drawable.ic_play)
 //        holder.btnPlay.setOnClickListener {
@@ -237,13 +238,13 @@ class ChatAdapter(
         } else {
             SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.ENGLISH)
         }
-        var myDate =
-            formatDate(dateStr, "yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'", "yyyy-MM-dd HH:mm:ss")
+//        var myDate =
+//            formatDate(dateStr, "yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'", "yyyy-MM-dd HH:mm:ss")
 //            dateFormat.timeZone = TimeZone.getTimeZone("UTC")
-        var format = SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.ENGLISH)
-        val date: Date = format.parse(myDate)
-        dateFormat.timeZone = TimeZone.getDefault()
-        val formattedDate = dateFormat.format(date)
+        var format = SimpleDateFormat("yyyy-MM-dd HH:mm a", Locale.ENGLISH)
+        val date: Date = format.parse(dateStr)
+//        dateFormat.timeZone = TimeZone.getDefault()
+//        val formattedDate = dateFormat.format(date)
 
         val newDate = (date.time)
 
@@ -283,11 +284,11 @@ class ChatAdapter(
 //    }
 
 
-    fun addList(firstPage: Boolean?, list: ArrayList<ChatMessage>) {
-        if (firstPage == true)
-            chattingList.clear()
-        chattingList.addAll(0, list)
-        notifyDataSetChanged()
-    }
+//    fun addList(firstPage: Boolean?, list: ArrayList<ChatMessage>) {
+//        if (firstPage == true)
+//            chattingList.clear()
+//        chattingList.addAll(0, list)
+//        notifyDataSetChanged()
+//    }
 
 }

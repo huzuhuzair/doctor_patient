@@ -1,6 +1,5 @@
 package com.aamir.icarepro.ui.activity
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -16,11 +15,15 @@ import com.aamir.icarepro.base.presentation.activity.BaseActivity
 import com.aamir.icarepro.data.dataStore.DataStoreConstants
 import com.aamir.icarepro.data.dataStore.DataStoreHelper
 import com.aamir.icarepro.data.models.login.LoginResponse
-import com.aamir.icarepro.utils.SocketManager
 import com.aamir.icarepro.utils.getCurrentNavigationFragment
 import com.aamir.icarepro.utils.toStart
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.pawegio.kandroid.hide
 import com.pawegio.kandroid.show
+import com.pawegio.kandroid.startActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -31,8 +34,9 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 @ExperimentalCoroutinesApi
-class HomeActivity : BaseActivity(), SocketManager.OnMessageReceiver {
+class HomeActivity : BaseActivity() {
 
+    private lateinit var myUserRef: DatabaseReference
     private var userData: LoginResponse? = null
     private var isHome: Boolean = true
     private var navController: NavController? = null
@@ -40,14 +44,14 @@ class HomeActivity : BaseActivity(), SocketManager.OnMessageReceiver {
     private val navBuilder: NavOptions.Builder by lazy {
         NavOptions.Builder()
     }
-
+    private lateinit var database: FirebaseDatabase
     override val layoutResId: Int
         get() = R.layout.activity_home
 
     @Inject
     lateinit var mDataStoreHelper: DataStoreHelper
 
-    private val socketManager = SocketManager.getInstance()
+//    private val socketManager = SocketManager.getInstance()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         intialize()
@@ -56,6 +60,10 @@ class HomeActivity : BaseActivity(), SocketManager.OnMessageReceiver {
 
     }
 
+    override fun onStart() {
+        myUserRef.child( userData?.id.toString()).setValue("Online")
+        super.onStart()
+    }
     private fun listeners() {
 //        btnNav.setOnClickListener {
 //            if (isHome) {
@@ -94,17 +102,21 @@ class HomeActivity : BaseActivity(), SocketManager.OnMessageReceiver {
             mDataStoreHelper.clear()
             mDataStoreHelper.logOut()
         }
-        val arguments = JSONObject()
-        arguments.putOpt("online_status", 0)
-        arguments.putOpt("user_id", userData?.id)
-        socketManager.sendOnlineStatus(arguments, this)
-        socketManager.disconnect()
-        toStart()
+
+        startActivity(Intent(this, AuthenticationActivity::class.java))
+        finish()
+//        val arguments = JSONObject()
+//        arguments.putOpt("online_status", 0)
+//        arguments.putOpt("user_id", userData?.id)
+//        socketManager.sendOnlineStatus(arguments, this)
+//        socketManager.disconnect()
+//        toStart()
     }
 
     private fun intialize() {
         drawerLayout.setScrimColor(Color.TRANSPARENT)
-
+        database = Firebase.database
+        myUserRef = database.getReference("UserStatus")
         val actionBarDrawerToggle: ActionBarDrawerToggle =
             object :
                 ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close) {
@@ -125,7 +137,7 @@ class HomeActivity : BaseActivity(), SocketManager.OnMessageReceiver {
                 if (userData != null) {
                     tvName.text = it!!.name
                     tvEmail.text = it.email
-                    socketManager.connect(this@HomeActivity, userData!!, this@HomeActivity, 1)
+//                    socketManager.connect(this@HomeActivity, userData!!, this@HomeActivity, 1)
                 } else {
                     toStart()
                 }
@@ -137,7 +149,8 @@ class HomeActivity : BaseActivity(), SocketManager.OnMessageReceiver {
         val arguments = JSONObject()
         arguments.putOpt("online_status", 0)
         arguments.putOpt("user_id", userData?.id)
-        socketManager.sendOnlineStatus(arguments, this)
+//        socketManager.sendOnlineStatus(arguments, this)
+        myUserRef.child( userData?.id.toString()).setValue("Offline")
         super.onPause()
     }
 
@@ -214,9 +227,9 @@ class HomeActivity : BaseActivity(), SocketManager.OnMessageReceiver {
 
     }
 
-    override fun onMessageReceive(message: String, event: String) {
-
-    }
+//    override fun onMessageReceive(message: String, event: String) {
+//
+//    }
 
 
 }

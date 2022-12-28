@@ -52,7 +52,6 @@
                 android:layout_gravity="end"
                 android:fontFamily="@font/circular_std_book_italic"
                 android:text="07:45 PM"
-                android:visibility="gone"
                 android:textColor="@color/grey"
                 android:textSize="10sp" />
 

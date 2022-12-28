@@ -7,7 +7,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.aamir.icarepro.R
-import com.aamir.icarepro.data.models.chat.Conversation
+import com.aamir.icarepro.data.models.FirebaseConversation
 import com.aamir.icarepro.data.models.login.LoginResponse
 import com.aamir.icarepro.databinding.LayoutChatUsersListAdapterBinding
 import com.aamir.icarepro.ui.fragment.chatModule.ConversationFragment
@@ -15,18 +15,16 @@ import com.aamir.icarepro.utils.loadImage
 import com.aamir.icarepro.utils.timeAgo
 import com.pawegio.kandroid.hide
 import com.pawegio.kandroid.show
-import kotlinx.android.synthetic.main.activity_home.view.*
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 /**
  * Created by Aamir Bashir on 27-11-2021.
  */
 class ConversationsAdapter(
     private val fragment: Fragment,
-    private val items: ArrayList<Conversation>,
+    private val items: ArrayList<FirebaseConversation>,
     var user: LoginResponse
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -47,7 +45,7 @@ class ConversationsAdapter(
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        context=parent.context
+        context = parent.context
         return ViewHolder(
             DataBindingUtil.inflate(
                 LayoutInflater.from(parent.context),
@@ -69,32 +67,33 @@ class ConversationsAdapter(
             }
         }
 
-        fun bind(item: Conversation) = with(binding) {
-            binding.tvUsername.text = item.user.user_profile.fullname
-            tvLastMessage.text = item.last_message.message
-            if (item.last_message.receiver_id == user.id) {
-                if (item.last_message.read_at != null) {
+        fun bind(item: FirebaseConversation) = with(binding) {
+            val index = if (item?.membersNames?.indexOf(user?.name) != 0) 0 else 1
+            binding.tvUsername.text = item.membersNames[index]
+            tvLastMessage.text = item.lastMessageSent
+            if (item.lastMessageBy != user.id) {
+                if (item.read) {
                     imgUnread.hide()
                     mainLayout.setBackgroundColor(context!!.resources.getColor(R.color.white))
                 } else {
                     mainLayout.setBackgroundColor(context!!.resources.getColor(R.color.colorSelected))
                     imgUnread.show()
                 }
-            }else{
+            } else {
                 mainLayout.setBackgroundColor(context!!.resources.getColor(R.color.white))
                 imgUnread.hide()
             }
-            tvTime?.text =
-                if (item.last_message.created_at != "") msgDate(item.last_message.created_at ?: "")
+            tvTime.text =
+                if (item.updatedAt!= "") msgDate(item.updatedAt ?: "")
                 else ""
 //            tvAddress.text = "${item.user_profile.address}, ${item.user_profile.country}"
-            if (item.user.user_profile.image_url != null) {
-                item.user.user_profile.image_url = item.user.user_profile.image_url.replace(
-                    "http://127.0.0.1:8000/",
-                    "http://192.168.18.125:1020/hospitalmanagement/public/"
-                )
-                binding.ivProfile.loadImage(item.user.user_profile.image_url, R.drawable.error)
-            }
+//            if (item.user.user_profile.image_url != null) {
+//                item.user.user_profile.image_url = item.user.user_profile.image_url.replace(
+//                    "http://127.0.0.1:8000/",
+//                    "https://icare.codewithbhat.info/public/"
+//                )
+            binding.ivProfile.loadImage(item.membersProfiles[index], R.drawable.placeholder)
+//            }
 
         }
 
@@ -104,11 +103,10 @@ class ConversationsAdapter(
             } else {
                 SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.ENGLISH)
             }
-            var myDate =
-                formatDate(dateStr, "yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'", "yyyy-MM-dd HH:mm:ss")
+
 //            dateFormat.timeZone = TimeZone.getTimeZone("UTC")
-            var format = SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.ENGLISH)
-            val date: Date = format.parse(myDate)
+            var format = SimpleDateFormat("yyyy-MM-dd HH:mm a", Locale.ENGLISH)
+            val date: Date = format.parse(dateStr)
             dateFormat.timeZone = TimeZone.getDefault()
             val formattedDate = dateFormat.format(date)
 
@@ -137,12 +135,5 @@ class ConversationsAdapter(
         return null
     }
 
-    fun addList(firstPage: Boolean, list: ArrayList<Conversation>) {
-        if (firstPage)
-            items.clear()
-        items.addAll(list)
-        items.addAll(list)
-        notifyDataSetChanged()
-    }
 
 }

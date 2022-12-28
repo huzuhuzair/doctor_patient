@@ -18,7 +18,6 @@ import com.aamir.icarepro.databinding.FragmentHomeBinding
 import com.aamir.icarepro.ui.adapter.HomeCategoriesAdapter
 import com.aamir.icarepro.ui.adapter.HomeDocsAdapter
 import com.aamir.icarepro.ui.viewModel.HomeViewModel
-import com.aamir.icarepro.utils.SocketManager
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
 import com.google.gson.Gson
@@ -27,7 +26,6 @@ import com.pawegio.kandroid.show
 import com.pawegio.kandroid.toast
 import com.pawegio.kandroid.visible
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
@@ -37,11 +35,10 @@ import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
-class HomeFragment : BaseContainerFragment<FragmentHomeBinding>(), SocketManager.OnMessageReceiver {
+class HomeFragment : BaseContainerFragment<FragmentHomeBinding>() {
     private lateinit var docsAdapter: HomeDocsAdapter
     private lateinit var catAdapter: HomeCategoriesAdapter
     private lateinit var binding: FragmentHomeBinding
-    private val socketManager = SocketManager.getInstance()
 
     @Inject
     lateinit var mDataStoreHelper: DataStoreHelper
@@ -90,7 +87,7 @@ class HomeFragment : BaseContainerFragment<FragmentHomeBinding>(), SocketManager
         for (data in arrayList) {
             data.banner_url = data.banner_url.replace(
                 "http://127.0.0.1:8000/",
-                "http://192.168.18.125:1020/hospitalmanagement/public/"
+                "https://icare.codewithbhat.info/public/"
             )
             imageList.add(SlideModel(data.banner_url, ScaleTypes.CENTER_CROP))
         }
@@ -117,7 +114,7 @@ class HomeFragment : BaseContainerFragment<FragmentHomeBinding>(), SocketManager
 //                tvEmail.text=it.email
                 if (it != null) {
                     if (it.role_id == 3) {
-                        socketManager.connect(requireActivity(), it!!, this@HomeFragment, 1)
+//                        socketManager.connect(requireActivity(), it!!, this@HomeFragment, 1)
                         try {
                             llMain.show()
                         }catch (e:Exception){}
@@ -147,9 +144,9 @@ class HomeFragment : BaseContainerFragment<FragmentHomeBinding>(), SocketManager
     override val layoutResourceId: Int
         get() = R.layout.fragment_home
 
-    override fun onMessageReceive(message: String, event: String) {
-
-    }
+//    override fun onMessageReceive(message: String, event: String) {
+//
+//    }
 
 
 }

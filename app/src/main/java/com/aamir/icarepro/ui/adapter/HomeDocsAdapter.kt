@@ -62,7 +62,7 @@ class HomeDocsAdapter(
             if (item.image_url!=null) {
                 item.image_url = item.image_url.replace(
                     "http://127.0.0.1:8000/",
-                    "http://192.168.18.125:1020/hospitalmanagement/public/"
+                    "https://icare.codewithbhat.info/public/"
                 )
             binding.ivPic.loadImage(item.image_url, R.drawable.error)
             }

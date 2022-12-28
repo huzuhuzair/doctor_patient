@@ -3,6 +3,7 @@ package com.aamir.icarepro.ui.fragment.chatModule
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
@@ -14,11 +15,17 @@ import com.aamir.icarepro.R
 import com.aamir.icarepro.base.presentation.fragment.BaseContainerFragment
 import com.aamir.icarepro.data.dataStore.DataStoreConstants
 import com.aamir.icarepro.data.dataStore.DataStoreHelper
-import com.aamir.icarepro.data.models.chat.Conversation
+import com.aamir.icarepro.data.models.FirebaseConversation
 import com.aamir.icarepro.data.models.login.LoginResponse
 import com.aamir.icarepro.databinding.LayoutChatlistFragmentBinding
 import com.aamir.icarepro.ui.adapter.ConversationsAdapter
 import com.aamir.icarepro.ui.viewModel.HomeViewModel
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
 import com.pawegio.kandroid.toast
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,8 +39,8 @@ import javax.inject.Inject
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class ConversationFragment : BaseContainerFragment<LayoutChatlistFragmentBinding>() {
-    private var data: java.util.ArrayList<Conversation>? = null
-    private val conversations = ArrayList<Conversation>()
+    private var data: java.util.ArrayList<FirebaseConversation>? = null
+    private val conversations = ArrayList<FirebaseConversation>()
     private var userData: LoginResponse? = null
     private lateinit var binding: LayoutChatlistFragmentBinding
     private lateinit var adapter: ConversationsAdapter
@@ -43,6 +50,7 @@ class ConversationFragment : BaseContainerFragment<LayoutChatlistFragmentBinding
     var isQuery = false
 
     var deletedItemPos = 0
+    private lateinit var database: FirebaseDatabase
 
     @Inject
     lateinit var mDataStoreHelper: DataStoreHelper
@@ -67,30 +75,13 @@ class ConversationFragment : BaseContainerFragment<LayoutChatlistFragmentBinding
         viewModel.error.observe(this, Observer {
             toast(it.message!!)
         })
-        viewModel.conversations.observe(this, Observer {
-//            loader.setLoading(false)
-            swipe?.isRefreshing = false
-            conversations.clear()
-            data = it
-            conversations.addAll(it)
-            adapter.notifyDataSetChanged()
-//            setPagination(it)
-
-        })
-    }
-
-    private fun setPagination(data: java.util.ArrayList<Conversation>) {
-        val firstPage = page == 1
-        adapter.addList(firstPage, data ?: arrayListOf())
-        moreData = data?.size == 10
-        // if (page == 1) rvNotifications.scrollToPosition((data?.size ?: 0) - 1)
-        page++
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = getViewDataBinding()
+        database = Firebase.database
         listeners()
         setAdapter()
         lifecycleScope.launch {
@@ -104,8 +95,7 @@ class ConversationFragment : BaseContainerFragment<LayoutChatlistFragmentBinding
                 userData = it
             }
         }
-        adapter = ConversationsAdapter(this, conversations, userData!!)
-        rvNotifications?.adapter = adapter
+
         hitApi("")
 
 //        (requireActivity() as HomeActivity)
@@ -128,8 +118,9 @@ class ConversationFragment : BaseContainerFragment<LayoutChatlistFragmentBinding
 
             override fun afterTextChanged(p0: Editable?) {
                 if (edtSearch.text.toString().trim().isNotEmpty()) {
-                    var test=conversations.filter {
-                        it.user.user_profile.fullname.toLowerCase().contains(
+                    var test = conversations.filter {
+                        var index = if (it.membersNames.indexOf(userData?.name) == 0) 1 else 0
+                        it.membersNames[index].toLowerCase().contains(
                             edtSearch.text.toString().trim().toLowerCase()
                         )
                     }
@@ -164,12 +155,43 @@ class ConversationFragment : BaseContainerFragment<LayoutChatlistFragmentBinding
     }
 
     private fun hitApi(query: String) {
-        swipe.isRefreshing = true
-        if (userData != null)
-            viewModel.getConversations(userData!!.id)
+        swipe.isRefreshing = false
+        if (userData != null) {
+            database.getReference("Conversations").addValueEventListener(object :
+                ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    var fbCons = ArrayList<FirebaseConversation>()
+                    snapshot.children.forEach {
+                        if (it.key.toString().trim().contains(userData?.id.toString())) {
+                            Log.e("KEY:: ", it.key!!)
+                            var hashMap = it.value as HashMap<*, *>
+                            var fbC = FirebaseConversation(
+                                hashMap["id"].toString(),
+                                (if(hashMap["lastMessageBy"]!=null) (hashMap["lastMessageBy"] as Long).toInt() else 0),
+                                hashMap["read"] as Boolean,
+                                hashMap["updatedAt"].toString(),
+                                hashMap["lastMessageSent"].toString(),
+                                hashMap["membersIds"] as List<Int>,
+                                hashMap["membersNames"] as List<String>,
+                                hashMap["membersProfiles"] as List<String>
+                            )
+                            fbCons.add(fbC)
+                        }
+                    }
+                    adapter = ConversationsAdapter(this@ConversationFragment, fbCons, userData!!)
+                    rvNotifications?.adapter = adapter
+
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                }
+
+            })
+        }
+//            viewModel.getConversations(userData!!.id)
     }
 
-    fun clickItem(conversation: Conversation) {
+    fun clickItem(conversation: FirebaseConversation) {
         findNavController().navigate(
             R.id.action_conversation_to_chat,
             bundleOf("DATA" to Gson().toJson(conversation))

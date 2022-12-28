@@ -11,13 +11,18 @@ import com.aamir.icarepro.R
 import com.aamir.icarepro.base.presentation.fragment.BaseContainerFragment
 import com.aamir.icarepro.data.dataStore.DataStoreConstants
 import com.aamir.icarepro.data.dataStore.DataStoreHelper
+import com.aamir.icarepro.data.models.FirebaseConversation
 import com.aamir.icarepro.data.models.chat.Conversation
 import com.aamir.icarepro.data.models.login.LoginResponse
 import com.aamir.icarepro.databinding.FragmentDoctorDetailBinding
 import com.aamir.icarepro.ui.adapter.DocsAdapter
 import com.aamir.icarepro.ui.viewModel.HomeViewModel
+import com.aamir.icarepro.utils.DateTimeUtils.currentDateTime
 import com.aamir.icarepro.utils.ProgressDialog
 import com.aamir.icarepro.utils.loadImage
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
 import com.pawegio.kandroid.hide
 import com.pawegio.kandroid.toast
@@ -31,11 +36,14 @@ import javax.inject.Inject
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class DoctorDetailsFragment : BaseContainerFragment<FragmentDoctorDetailBinding>() {
+    private lateinit var doctor: LoginResponse
     private lateinit var conversation: Conversation
     private lateinit var userData: LoginResponse
     private lateinit var catAdapter: DocsAdapter
     private lateinit var binding: FragmentDoctorDetailBinding
-    private lateinit var progressDialog:ProgressDialog
+    private lateinit var progressDialog: ProgressDialog
+    private lateinit var database: FirebaseDatabase
+
     @Inject
     lateinit var mDataStoreHelper: DataStoreHelper
     val viewModel: HomeViewModel by viewModels()
@@ -60,8 +68,8 @@ class DoctorDetailsFragment : BaseContainerFragment<FragmentDoctorDetailBinding>
             toast(it.message!!)
         })
         viewModel.user.observe(this, Observer {
-            conversation=it
-           setUserData(conversation.user)
+            conversation = it
+            setUserData(conversation.user)
         })
 
     }
@@ -70,7 +78,9 @@ class DoctorDetailsFragment : BaseContainerFragment<FragmentDoctorDetailBinding>
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = getViewDataBinding()
-        progressDialog= ProgressDialog(requireActivity())
+        progressDialog = ProgressDialog(requireActivity())
+        database = Firebase.database
+
 //        viewModel.getDoctors(requireArguments()["id"] as Int)
 //        (requireActivity() as HomeActivity)
         lifecycleScope.launch {
@@ -90,27 +100,42 @@ class DoctorDetailsFragment : BaseContainerFragment<FragmentDoctorDetailBinding>
             requireActivity().onBackPressed()
         }
         binding.llChat.setOnClickListener {
-           if(requireArguments().containsKey("fromChat")){
-               requireActivity().onBackPressed()
-           }else{
-               findNavController().navigate(
-                   R.id.action_detail_to_chat,
-                   bundleOf("DATA" to Gson().toJson(conversation))
-               )
-           }
+            var myref = database.getReference("Conversations")
+            val key = "${userData.id}_${doctor.id}"
+            var conversation = FirebaseConversation(
+                key,
+                0,
+                true,
+                currentDateTime,
+                "",
+                listOf(userData.id, doctor.id),
+                listOf(userData.name, doctor.name),
+                listOf(
+                    userData.user_profile.image_url,
+                    doctor.user_profile.image_url
+                )
+            )
+            if (requireArguments().containsKey("fromChat")) {
+                requireActivity().onBackPressed()
+            } else {
+                myref.child(key ?: "").setValue(conversation)
+                findNavController().navigate(
+                    R.id.action_detail_to_chat,
+                    bundleOf("DATA" to Gson().toJson(conversation))
+                )
+            }
+//
         }
     }
 
     private fun intialize() {
 
         if (requireArguments()["DATA"] != null) {
-            var doctor = Gson().fromJson<LoginResponse>(
+            doctor = Gson().fromJson<LoginResponse>(
                 requireArguments()["DATA"].toString(),
                 LoginResponse::class.java
             )
-            viewModel.loadUserData(doctor.id,userData.id)
-//            setUserData(doctor)
-//            binding.ivPic.loadImage(doctor.userDatauser_profile.image_url,R.drawable.placeholder)
+            viewModel.loadUserData(doctor.id, userData.id)
         }
     }
 
@@ -121,9 +146,9 @@ class DoctorDetailsFragment : BaseContainerFragment<FragmentDoctorDetailBinding>
             "${doctor.user_profile.address}, ${doctor.user_profile.city} \n${doctor.user_profile.country}"
         if (doctor.role_id == 2) {
             binding.tvDesc.text = if (doctor.category != null) doctor.category.title else ""
-            doctor.user_qualifications.groupBy { binding.tvQualV.text =
-                binding.tvQualV.text.toString() + " " + if (it != null) it.title
-                    ?: "N/A" else "N/A"
+            doctor.user_qualifications.groupBy {
+                binding.tvQualV.text =
+                    binding.tvQualV.text.toString() + " " + if (it != null) it.title else "N/A"
             }
         } else {
             binding.tvQualV.hide()
@@ -132,7 +157,7 @@ class DoctorDetailsFragment : BaseContainerFragment<FragmentDoctorDetailBinding>
         if (doctor.user_profile.image_url != null) {
             doctor.user_profile.image_url = doctor.user_profile.image_url.replace(
                 "http://127.0.0.1:8000/",
-                "http://192.168.18.125:1020/hospitalmanagement/public/"
+                "https://icare.codewithbhat.info/public/"
             )
             binding.ivPic.loadImage(doctor.user_profile.image_url, R.drawable.placeholder)
         }

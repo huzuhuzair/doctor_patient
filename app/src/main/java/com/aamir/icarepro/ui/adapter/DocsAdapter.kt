@@ -62,7 +62,7 @@ class DocsAdapter(
             if (item.user_profile.image_url != null) {
                 item.user_profile.image_url = item.user_profile.image_url.replace(
                     "http://127.0.0.1:8000/",
-                    "http://192.168.18.125:1020/hospitalmanagement/public/"
+                    "https://icare.codewithbhat.info/public/"
                 )
                 binding.ivPic.loadImage(item.user_profile.image_url, R.drawable.error)
             }
